@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-	void myFunction() 
+	void DissAsm(unsigned char *buff, int pc) 
 	{
-		char *code;
+		char *code = buff[pc];
 		int opCodeSize = 1;
+		printf("Data: \n");
 		switch (*code)
 		{
 			case 0x00: printf("NOP"); break;
@@ -25,10 +26,52 @@
 			case 0x0e: printf("MVI    C,#$%02x", code[1]); opCodeSize = 2;	break;
 			case 0x0f: printf("RRC"); break;
 			
-			case 0x10: printf(); break;
 		}
 		
-		
-		
+		printf("\n")
+		return opCodeSize;
 	}
 		
+	int main()
+	{
+		// open bin file
+		
+		
+		// read bin file in to the *buffer (000800080008)
+		
+		
+		
+		
+		// move through the file incrementing the pc as we go.
+		
+		/*
+			if our buffer was filled with 000800080008
+			and we call: 
+			
+			for (int i = 0; i < 6: i++)
+			{
+				int myValue = DissAsm(buffer, pc);
+			}
+				printf(myValue);
+			
+			our output would be....
+			
+			Data:
+			NOP
+			NOP
+			NOP
+			NOP
+			NOP
+			NOP
+			
+			1
+		*/
+		
+		int pc = 0;
+		unsigned char *buffer = malloc(200);
+		
+		for (int i = pc; i < 10; i++)
+		{
+			pc = pc + DissAsm(buffer, pc);
+		}
+	}
