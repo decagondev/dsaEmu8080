@@ -298,9 +298,29 @@ void DissAsm(unsigned char *buff, int pc)
 int main()
 {
 	// open bin file
-		
-	// read bin file in to the *buffer (000800080008)
+//	unsigned char* OpenRom(char *fName) 
+//	{
+		char *fName = "game.bin";
+		FILE *file = fopen(fName, "rb");
 	
+		if (file == NULL)
+		{
+			printf("ERROR: Could not open %s\n", fName);
+			exit(1);
+		}
+		
+		// read bin file in to the *buffer (000800080008)
+		fseek(file, 0L, SEEK_END);
+		int fSize = ftell(file);
+		fseek(f, 0L, SEEK_SET);
+		unsigned char *buff = malloc(fSize);
+//		return *buff;
+//	}
+	
+	while (pc < fSize)
+	{
+		pc += DissAsm(buff, pc);
+	}
 	// move through the file incrementing the pc as we go.
 	
 	/*
@@ -326,11 +346,12 @@ int main()
 		1
 	*/
 	
-	int pc = 0;
-	unsigned char *buffer = malloc(200);
+//	int pc = 0;
+//	unsigned char *buffer = malloc(200);
 	
-	for (int i = pc; i < 10; i++)
-	{
-		pc = pc + DissAsm(buffer, pc);
-	}
+//	for (int i = pc; i < 10; i++)
+//	{
+//		pc = pc + DissAsm(buffer, pc);
+//	}
+	return 0
 }
