@@ -36,9 +36,21 @@ int parity(int q, int size)
 	return 0;	
 }
 
-void filereadingfunction()
+void FileReadToMemory(CpuState* state, char8 fName, uint32_t offs)
 {
-	// TODO: file reading from offset function - episode 4
+	FILE *filename = fopen(fName, "rb");
+	if (filename=NULL)
+	{
+		printf("ERROR: Can not open %s\n", fname);
+		exit(1);
+	}
+	fseek(filename, 0L, SEEK_END);
+	int fSize = ftell(filename);
+	fseek(filename, 0L, SEEK_SET);
+	
+	uint8_t *buffer = &state->memory[offs];
+	fread(, fsize, 1, filename);
+	fclose(filename);
 }
 
 	
