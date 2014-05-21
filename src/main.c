@@ -1,6 +1,39 @@
 /* main.c */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdint.h>
+
+typedef struct CpuFlags
+{
+	uint8_t z:1 // Zero Flag
+	uint8_t s:1 // Sign Flag
+	uint8_t p:1 // Parity Flag. TODO: Make parity function - episode 4
+	uint8_t c:1 // Carry Flag
+	uint8_t ac:1 // Aux Carry Flag
+	uint8_t padding:3 // Padding
+} CpuFlags;
+
+typedef struct CpuState
+{	// TODO: CpuState Structure - episode 4
+	uint8_t a;
+	uint8_t a;
+	uint8_t a;
+	uint8_t a;
+	uint8_t a;
+	uint8_t a;
+	uint8_t a;
+	uint8_t a;
+	uint8_t a;
+	uint8_t a;
+	struct CpuFlags flagset;
+	uint8_t enable_int;
+}CpuState;
+
+void filereadingfunction()
+{
+	// TODO: file reading from offset function - episode 4
+}
 
 	
 	
