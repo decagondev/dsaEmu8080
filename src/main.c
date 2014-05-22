@@ -36,12 +36,12 @@ int parity(int q, int size)
 	return 0;	
 }
 
-void FileReadToMemory(CpuState* state, char8 fName, uint32_t offs)
+void FileReadToMemory(CpuState* state, char* fName, uint32_t offs)
 {
 	FILE *filename = fopen(fName, "rb");
-	if (filename=NULL)
+	if (filename = NULL)
 	{
-		printf("ERROR: Can not open %s\n", fname);
+		printf("ERROR: Can not open %s\n", fName);
 		exit(1);
 	}
 	fseek(filename, 0L, SEEK_END);
@@ -49,7 +49,7 @@ void FileReadToMemory(CpuState* state, char8 fName, uint32_t offs)
 	fseek(filename, 0L, SEEK_SET);
 	
 	uint8_t *buffer = &state->memory[offs];
-	fread(, fsize, 1, filename);
+	fread(, fSize, 1, filename);
 	fclose(filename);
 }
 
