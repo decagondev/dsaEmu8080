@@ -32,8 +32,16 @@ typedef struct CpuState
 
 int parity(int q, int size)
 {
-	// TODO: fill the parity function here - episode 5
-	return 0;	
+	// parity function TODO: move to utils include.
+	int p = 0;
+	q = (q & ((1 << size)-1));
+	for (int i = 0; i < size; i++)
+	{
+		if (q & 0x1) p++;
+		q = q >> 1;
+	}
+	
+	return (0 == (p & 0x1));	
 }
 
 void FileReadToMemory(CpuState* state, char* fName, uint32_t offs)
@@ -344,8 +352,27 @@ void DissAsm(unsigned char *buff, int pc)
 	return opCodeSize;
 }
 		
+void LogicalFlags()
+{
+	//TODO: Logic Flag Function - ep 6
+}
 
+void ArithmaticFlags()
+{
+	// TODO: Arithmatic Flag Function - ep 6	
+}
 
+void NotDone()
+{
+	// TODO: Unimplimented Ins - Episode 7
+}
+
+int Emu8080Op()
+{
+	//TODO: Emu8080Op() Function - Episode 8 / 9 / 10+
+	
+	return 0;
+}
 int main()
 {
 	// open bin file
