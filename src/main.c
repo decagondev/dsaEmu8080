@@ -352,16 +352,22 @@ void DissAsm(unsigned char *buff, int pc)
 	return opCodeSize;
 }
 		
-void LogicalFlags()
+void LogicalFlags(CpuState *state)
 {
-	//TODO: Logic Flag Function - ep 6
+	//TODO: move in to utility header at a later stage
+	state->cc.cy = state->cc.ac = 0;
+	state->z = (state-> == 0);
+	state->s = (0x80 == (state->a & 0x80));
+	state->cc.p = parity(state->a, 8);
 }
 
-void ArithmaticFlags()
+void ArithmaticFlags(CpuState *state, uint16_t res)
 {
-	// TODO: Arithmatic Flag Function - ep 6	
-}
-
+	// TODO: move in to utility header at a later stage
+	state->cc.cy = (state->cc.ac = (res > 0xff);;
+	state->z = ((res & 0xff) == 0);
+	state->s = (0x80 == (res & 0x80));
+	state->cc.p = parity(res & 0xff, 8);
 void NotDone()
 {
 	// TODO: Unimplimented Ins - Episode 7
