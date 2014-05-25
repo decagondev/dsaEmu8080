@@ -8,7 +8,7 @@ typedef struct CpuFlags
 {
 	uint8_t z:1 // Zero Flag
 	uint8_t s:1 // Sign Flag
-	uint8_t p:1 // Parity Flag. TODO: Make parity function - episode 4
+	uint8_t p:1 // Parity Flag.
 	uint8_t c:1 // Carry Flag
 	uint8_t ac:1 // Aux Carry Flag
 	uint8_t padding:3 // Padding
@@ -368,15 +368,50 @@ void ArithmaticFlags(CpuState *state, uint16_t res)
 	state->z = ((res & 0xff) == 0);
 	state->s = (0x80 == (res & 0x80));
 	state->cc.p = parity(res & 0xff, 8);
-void NotDone()
+}
+
+void UnimplementedIns(CpuState *state)
 {
-	// TODO: Unimplimented Ins - Episode 7
+	/* TODO: Unimplimented Ins - print message, decrement pc (Program Counter)
+	   DissAsm(the instruction), print a new line and exit with an error. */
+	printf("Instruction Not Implemented!\n"); // print reason for error
+	state->pc--; // decrement pc
+	DissAsm(state->memory, state->pc); //DissAsm the ins
+	printf("\n");
+	exit(1); // exit returning error
 }
 
 int Emu8080Op()
 {
-	//TODO: Emu8080Op() Function - Episode 8 / 9 / 10+
+	//TODO: add mor insatruction implementations over the course of the series
 	
+	int cycles = 4; // Number of cycles in std op
+	unsigned char *opCode = &state->memory[state->pc]; //Set opCode to read next
+	
+	DissAsm();
+	
+	state->pc++; // increment PC
+	
+	switch (*opCode)
+	{
+		case 0x00: return;
+		case 0x01: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x02: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x03: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x04: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x05: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x06: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x07: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x08: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x09: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x0a: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x0b: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x0c: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x0d: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x0e: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x0f: UnimplementedIns(state); break; // TODO: Implement Instruction
+		
+	}
 	return 0;
 }
 int main()
