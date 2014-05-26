@@ -404,7 +404,16 @@ int Emu8080Op()
 		case 0x02: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x03: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x04: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x05: UnimplementedIns(state); break; // TODO: Implement Instruction - episode 9
+		case 0x05: // implemented in episode 9
+			{
+				uint8_t res = state->b - 1;
+				state->cc.z = (res == 0);
+				state->cc.s = (0x80 == (res & 0x80));
+				state->cc.p = parity(res, 8);
+				state->b = res;
+			}
+			break;
+		
 		case 0x06: // implemented in episode 8
 			state->b = opCode[1]; // Load opCode[1] in to reg b
 			state->pc++; // inc pc 
