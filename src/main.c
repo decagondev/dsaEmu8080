@@ -395,12 +395,17 @@ int Emu8080Op()
 	switch (*opCode)
 	{
 		case 0x00: return;
-		case 0x01: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x01: 
+			state->c = opCode[1];
+			state->b = opCode[2];
+			state->pc += 2;
+			break; 
+			// TODO: Implement Instruction
 		case 0x02: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x03: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x04: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x05: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x06: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x05: UnimplementedIns(state); break; // TODO: Implement Instruction - episode 9
+		case 0x06: UnimplementedIns(state); break; // TODO: Implement Instruction - episode 9
 		case 0x07: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x08: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x09: UnimplementedIns(state); break; // TODO: Implement Instruction
