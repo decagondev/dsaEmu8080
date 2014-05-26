@@ -73,12 +73,12 @@ void DissAsm(unsigned char *buff, int pc)
 	{
 		// B,C Cases
 		case 0x00: printf("NOP"); break;
-		case 0x01: printf("LXI    B,#$%02x%02x", code[2], code[1]); opCodeSize=3; break;
+		case 0x01: printf("LXI    B,#$%02x%02x", code[2], code[1]); opCodeSize=3; break; // implemented in episode 8
 		case 0x02: printf("STAX   B"); break;
 		case 0x03: printf("INX    B"); break;
 		case 0x04: printf("INR    B"); break;
-		case 0x05: printf("DCR    B"); break;
-		case 0x06: printf("MVI    B,#$%02x", code[1]); opCodeSize=2; break;
+		case 0x05: printf("DCR    B"); break; // TODO: implement in ep 9.
+		case 0x06: printf("MVI    B,#$%02x", code[1]); opCodeSize=2; break; // implemented in episode 8
 		case 0x07: printf("RLC"); break;
 		case 0x08: printf("NOP"); break;
 		case 0x09: printf("DAD    B"); break;
@@ -395,17 +395,21 @@ int Emu8080Op()
 	switch (*opCode)
 	{
 		case 0x00: return;
-		case 0x01: 
-			state->c = opCode[1];
-			state->b = opCode[2];
-			state->pc += 2;
+		case 0x01: // implemented in episode 8
+			state->c = opCode[1]; // load opCode[1] in to reg c
+			state->b = opCode[2];// load opCode[2] in to reg b
+			state->pc += 2;//inc pc by 2.
 			break; 
-			// TODO: Implement Instruction
+			
 		case 0x02: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x03: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x04: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x05: UnimplementedIns(state); break; // TODO: Implement Instruction - episode 9
-		case 0x06: UnimplementedIns(state); break; // TODO: Implement Instruction - episode 9
+		case 0x06: // implemented in episode 8
+			state->b = opCode[1]; // Load opCode[1] in to reg b
+			state->pc++; // inc pc 
+			break; 
+			
 		case 0x07: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x08: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x09: UnimplementedIns(state); break; // TODO: Implement Instruction
