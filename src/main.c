@@ -435,9 +435,25 @@ int Emu8080Op()
 		case 0x0a: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0c: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x0d: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x0d: UnimplementedIns(state); break; // TODO: Implement Instruction episode 11 : DCR C
 		case 0x0e: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0f: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x10: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x11: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x12: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x13: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x14: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x15: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x16: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x17: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x18: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x19: UnimplementedIns(state); break; // TODO: Implement Instruction episode 11 : DAD D
+		case 0x1a: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x1b: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x1c: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x1d: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x1e: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x1f: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
 	}
 	return 0;
