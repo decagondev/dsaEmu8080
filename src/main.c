@@ -421,7 +421,17 @@ int Emu8080Op()
 			
 		case 0x07: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x08: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x09: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x09: // implemented in episode 10
+			{
+				uint32_t hl = (state->h << 8) | state->l;
+				uint32_t bc = (state->b << 8) | state->c;
+				uint32_t = res = hl + bc;
+				state->h = (res & 0xff00) >> 8;
+				state->l = res & 0xff;
+				state->cc.cy = ((res & 0xffff0000) > 0);
+			}
+			break;
+			
 		case 0x0a: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0c: UnimplementedIns(state); break; // TODO: Implement Instruction
