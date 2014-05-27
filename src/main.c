@@ -425,7 +425,7 @@ int Emu8080Op()
 			{
 				uint32_t hl = (state->h << 8) | state->l;
 				uint32_t bc = (state->b << 8) | state->c;
-				uint32_t = res = hl + bc;
+				uint32_t res = hl + bc;
 				state->h = (res & 0xff00) >> 8;
 				state->l = res & 0xff;
 				state->cc.cy = ((res & 0xffff0000) > 0);
