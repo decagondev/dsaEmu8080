@@ -64,7 +64,7 @@ void FileReadToMemory(CpuState* state, char* fName, uint32_t offs)
 	
 	
 	
-void DissAsm(unsigned char *buff, int pc) 
+int DissAsm(unsigned char *buff, int pc) 
 {
 	char *code = buff[pc];
 	int opCodeSize = 1;
@@ -435,11 +435,20 @@ int Emu8080Op()
 		case 0x0a: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0c: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x0d: UnimplementedIns(state); break; // TODO: Implement Instruction episode 11 : DCR C
-		case 0x0e: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x0f: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x0d: // implemented in episode 11 : DCR C
+			{
+				uint8_t res = state->c - 1;
+				state->z = (res == 0);
+				state->cc.s = (0x80 == (res & 0x80));
+				state->cc.p = parity(res, 8);
+				state->c = res;
+			}
+			break; 
+			
+		case 0x0e: UnimplementedIns(state); break; // TODO: Implement Instruction in ep 12
+		case 0x0f: UnimplementedIns(state); break; // TODO: Implement Instruction in ep 12
 		case 0x10: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x11: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x11: UnimplementedIns(state); break; // TODO: Implement Instruction in ep 12
 		case 0x12: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x13: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x14: UnimplementedIns(state); break; // TODO: Implement Instruction
@@ -447,7 +456,16 @@ int Emu8080Op()
 		case 0x16: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x17: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x18: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x19: UnimplementedIns(state); break; // TODO: Implement Instruction episode 11 : DAD D
+		case 0x19: // Implemented in episode 11 : DAD D
+			{
+				uint32_t hl = (state->h << 8) | state->l;
+				uint32_t bc = (state->d << 8) | state->e;
+				uint32_t res = hl + de;
+				state->h = (res & 0xff00) >> 8;
+				state->l = res & 0xff;
+				state->cc.cy = ((res & 0xffff0000) != 0);
+			}		
+			break;
 		case 0x1a: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x1b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x1c: UnimplementedIns(state); break; // TODO: Implement Instruction
