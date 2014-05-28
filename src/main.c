@@ -25,7 +25,7 @@ typedef struct CpuState
 	uint8_t l;
 	uint16_t sp;
 	uint16_t pc;
-	uint8_t *memory;;
+	uint8_t *memory; // fixed type here: after episode 12
 	struct CpuFlags flagset;
 	uint8_t enable_int;
 }CpuState;
