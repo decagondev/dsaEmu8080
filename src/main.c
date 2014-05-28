@@ -383,7 +383,7 @@ void UnimplementedIns(CpuState *state)
 
 int Emu8080Op()
 {
-	//TODO: add mor insatruction implementations over the course of the series
+	//TODO: add more insatruction implementations over the course of the series
 	
 	int cycles = 4; // Number of cycles in std op
 	unsigned char *opCode = &state->memory[state->pc]; //Set opCode to read next
@@ -395,15 +395,17 @@ int Emu8080Op()
 	switch (*opCode)
 	{
 		case 0x00: return;
+		
 		case 0x01: // implemented in episode 8
 			state->c = opCode[1]; // load opCode[1] in to reg c
-			state->b = opCode[2];// load opCode[2] in to reg b
-			state->pc += 2;//inc pc by 2.
+			state->b = opCode[2]; // load opCode[2] in to reg b
+			state->pc += 2; // inc pc by 2.
 			break; 
 			
 		case 0x02: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x03: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x04: UnimplementedIns(state); break; // TODO: Implement Instruction
+		
 		case 0x05: // implemented in episode 9
 			{
 				uint8_t res = state->b - 1;
@@ -435,6 +437,7 @@ int Emu8080Op()
 		case 0x0a: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x0c: UnimplementedIns(state); break; // TODO: Implement Instruction
+		
 		case 0x0d: // implemented in episode 11 : DCR C
 			{
 				uint8_t res = state->c - 1;
@@ -445,10 +448,27 @@ int Emu8080Op()
 			}
 			break; 
 			
-		case 0x0e: UnimplementedIns(state); break; // TODO: Implement Instruction in ep 12
-		case 0x0f: UnimplementedIns(state); break; // TODO: Implement Instruction in ep 12
+		case 0x0e: // Implemented in episode 12 : MVI C, byte
+			state->c = opCode[1];
+			state->pc++;
+			break; 
+			
+		case 0x0f: // Implemented in episode 12 : RRC
+			{
+				uin8_t n = state->a;
+				state->a = ((n & 1)) << 7) | (n >> 1);
+				state->cc.cy = (1 == (n & 1));
+			}
+			break; 
+			
 		case 0x10: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x11: UnimplementedIns(state); break; // TODO: Implement Instruction in ep 12
+		
+		case 0x11: // Implemented in episode 12 : LXI D, word
+			state->e = opCode[1];
+			state->d = opCode[2];
+			state->pc += 2;
+			break; 
+			
 		case 0x12: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x13: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x14: UnimplementedIns(state); break; // TODO: Implement Instruction
@@ -456,6 +476,7 @@ int Emu8080Op()
 		case 0x16: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x17: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x18: UnimplementedIns(state); break; // TODO: Implement Instruction
+		
 		case 0x19: // Implemented in episode 11 : DAD D
 			{
 				uint32_t hl = (state->h << 8) | state->l;
@@ -466,6 +487,7 @@ int Emu8080Op()
 				state->cc.cy = ((res & 0xffff0000) != 0);
 			}		
 			break;
+			
 		case 0x1a: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x1b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x1c: UnimplementedIns(state); break; // TODO: Implement Instruction
