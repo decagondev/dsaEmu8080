@@ -591,6 +591,44 @@ int Emu8080Op()
 			
 		case 0x3f: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
+		// TODO : Paste unimp ins between 0x3f and 0x56
+		
+		case 0x56: // Implemented Instruction for Episode 17 : MOV D, M
+			{
+				uint16_t offset = (state->h << 8) | (state->l)
+				state->d = state->memory[offset];
+			}
+			break; 
+		
+		// TODO: paste unimp ins between 0x56 and 0x5e
+		
+		case 0x5e: // Implemented Instruction for Episode 17 : MOV E, M		
+			{
+				uint16_t offset = (state->h << 8) | (state->l)
+				state->e = state->memory[offset];
+			}
+			break; 
+		
+		// TODO: paste unimp ins between 0x5e and 0x66
+		
+		case 0x66: // Implemented Instruction for Episode 17 : MOV H, M	
+			{
+				uint16_t offset = (state->h << 8) | (state->l)
+				state->h = state->memory[offset];
+			}
+			break; 
+		
+		// TODO : paste unimp ins between 0x66 and 0x6f
+		
+		case 0x6f: // Implemented Instruction for Episode 17 : MOV L, A
+			state->l = state->a;
+			break; 
+		
+		// TODO : paste unimp ins between 0x6f and 0x77
+		
+		case 0x77: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 18 : MOV M, A
+		
+		
 	}
 	return 0;
 }
