@@ -525,7 +525,16 @@ int Emu8080Op()
 			break; 
 		case 0x27: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x28: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x29: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 15 : DAD H
+		case 0x29: // Implemented Instruction for Episode 15 : DAD H
+			{
+				uint32_t hl = (stste->h << 8) | state->l;
+				uint32_t res = hl + hl;
+				state->h = (res & 0xff00) >> 8;
+				state->l = res & 0xff;
+				state->cc.cy = ((res & 0xffff0000) != 0);
+			}
+			break; 
+			
 		case 0x2a: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x2b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x2c: UnimplementedIns(state); break; // TODO: Implement Instruction
@@ -533,8 +542,18 @@ int Emu8080Op()
 		case 0x2e: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x2f: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x30: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x31: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 15 : LXI SP, word
-		case 0x32: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 15 : STA (word)
+		case 0x31: // Implemented Instruction for Episode 15 : LXI SP, word
+			state->sp = (opCode[2] << 8 ) | opCode[1];
+			state->pc += 2;
+			break; 
+			
+		case 0x32: // Implemented Instruction for Episode 15 : STA (word)
+			{
+				uint16_t offset = (opCode[2] << 8 | (opCode[1]);
+				state->memory[offset] = state->a;
+				state-pc += 2;)
+			}
+			break; 
 		case 0x33: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x34: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x35: UnimplementedIns(state); break; // TODO: Implement Instruction
