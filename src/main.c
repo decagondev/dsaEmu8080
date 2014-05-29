@@ -504,6 +504,50 @@ int Emu8080Op()
 		case 0x1d: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x1e: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x1f: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x20: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x21: //Implemented Instruction for Episode 14 : LXI H, word
+			state->l = opCode[1];
+			state->h = opCode[2];
+			state->pc += 2;
+			break; 
+			
+		case 0x22: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x23: //Implemenede Instruction for Episode 14 : INX H
+			state->l++;
+			if (state->l == 0)
+				state->h++;
+			break; 
+		case 0x24: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x25: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x26: //Implemented Instruction for Episode 14 : MVI H, byte
+			state->h = opCode[1];
+			state->pc++;
+			break; 
+		case 0x27: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x28: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x29: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 15 : DAD H
+		case 0x2a: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x2b: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x2c: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x2d: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x2e: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x2f: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x30: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x31: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 15 : LXI SP, word
+		case 0x32: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 15 : STA (word)
+		case 0x33: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x34: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x35: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x36: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 16 : MVI M, byte
+		case 0x37: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x38: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x39: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x3a: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 16 : LDA (word)
+		case 0x3b: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x3c: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x3d: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x3e: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 16 : MVI A, byte
+		case 0x3f: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
 	}
 	return 0;
