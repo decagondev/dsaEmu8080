@@ -396,7 +396,7 @@ int Emu8080Op()
 	{
 		case 0x00: return;
 		
-		case 0x01: // implemented in episode 8
+		case 0x01: // implemented in episode 8 : LXI B, D16
 			state->c = opCode[1]; // load opCode[1] in to reg c
 			state->b = opCode[2]; // load opCode[2] in to reg b
 			state->pc += 2; // inc pc by 2.
@@ -406,7 +406,7 @@ int Emu8080Op()
 		case 0x03: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x04: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
-		case 0x05: // implemented in episode 9
+		case 0x05: // implemented in episode 9 : DCR B
 			{
 				uint8_t res = state->b - 1;
 				state->cc.z = (res == 0);
@@ -416,14 +416,14 @@ int Emu8080Op()
 			}
 			break;
 		
-		case 0x06: // implemented in episode 8
+		case 0x06: // implemented in episode 8 MVI C, D8
 			state->b = opCode[1]; // Load opCode[1] in to reg b
 			state->pc++; // inc pc 
 			break; 
 			
 		case 0x07: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x08: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x09: // implemented in episode 10
+		case 0x09: // implemented in episode 10 : DAD B
 			{
 				uint32_t hl = (state->h << 8) | state->l;
 				uint32_t bc = (state->b << 8) | state->c;
@@ -470,7 +470,11 @@ int Emu8080Op()
 			break; 
 			
 		case 0x12: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x13: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x13: // Implemented in Episode 13 : INX D
+			state->e++;
+			if (state->e == 0)
+				state->d++;
+			break; // TODO: Implement Instruction
 		case 0x14: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x15: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x16: UnimplementedIns(state); break; // TODO: Implement Instruction
@@ -488,7 +492,13 @@ int Emu8080Op()
 			}		
 			break;
 			
-		case 0x1a: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x1a: // Implemented in Episode 13 : LDAX D
+			{
+				uint16_t offset = (state-> d << 8) | state->e;
+				state->a = state->memory[offset];
+			}
+			break; 
+			
 		case 0x1b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x1c: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x1d: UnimplementedIns(state); break; // TODO: Implement Instruction
