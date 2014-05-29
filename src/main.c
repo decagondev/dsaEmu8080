@@ -554,18 +554,41 @@ int Emu8080Op()
 				state-pc += 2;)
 			}
 			break; 
+			
 		case 0x33: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x34: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x35: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x36: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 16 : MVI M, byte
+		
+		case 0x36: // Implemented Instruction for Episode 16 : MVI M, byte
+			{
+				//AC set if lower nibble of h is set to zero prior to a dec
+				uint16_t offset = (state->h << 8) | state->l;
+				state->memory[offset] = opCode[1];
+				state->pc++;
+			}
+			break; 
+		
 		case 0x37: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x38: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x39: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x3a: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 16 : LDA (word)
+		
+		case 0x3a: // Implemented Instruction for Episode 16 : LDA (word)
+			{
+				uint16_t offset = (opCode[2] << 8) | (opCode[1]);
+				state->a = state->memory[offset];
+				state->pc =+ 2;
+			}
+			break; 
+		
 		case 0x3b: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x3c: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x3d: UnimplementedIns(state); break; // TODO: Implement Instruction
-		case 0x3e: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 16 : MVI A, byte
+		
+		case 0x3e: // Implemented Instruction for Episode 16 : MVI A, byte
+			state->a = opCode[1];
+			state->pc++;
+			break;
+			
 		case 0x3f: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
 	}
