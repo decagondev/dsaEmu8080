@@ -542,6 +542,7 @@ int Emu8080Op()
 		case 0x2e: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x2f: UnimplementedIns(state); break; // TODO: Implement Instruction
 		case 0x30: UnimplementedIns(state); break; // TODO: Implement Instruction
+		
 		case 0x31: // Implemented Instruction for Episode 15 : LXI SP, word
 			state->sp = (opCode[2] << 8 ) | opCode[1];
 			state->pc += 2;
@@ -590,8 +591,28 @@ int Emu8080Op()
 			break;
 			
 		case 0x3f: UnimplementedIns(state); break; // TODO: Implement Instruction
-		
-		// TODO : Paste unimp ins between 0x3f and 0x56
+		case 0x40: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x41: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x42: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x43: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x44: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x45: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x46: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x47: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x48: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x49: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x4a: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x4b: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x4c: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x4d: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x4e: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x4f: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x50: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x51: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x52: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x53: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x54: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x55: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
 		case 0x56: // Implemented Instruction for Episode 17 : MOV D, M
 			{
@@ -600,7 +621,13 @@ int Emu8080Op()
 			}
 			break; 
 		
-		// TODO: paste unimp ins between 0x56 and 0x5e
+		case 0x57: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x58: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x59: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x5a: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x5b: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x5c: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x5d: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
 		case 0x5e: // Implemented Instruction for Episode 17 : MOV E, M		
 			{
@@ -609,7 +636,13 @@ int Emu8080Op()
 			}
 			break; 
 		
-		// TODO: paste unimp ins between 0x5e and 0x66
+		case 0x5f: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x60: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x61: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x62: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x63: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x64: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x65: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
 		case 0x66: // Implemented Instruction for Episode 17 : MOV H, M	
 			{
@@ -618,15 +651,57 @@ int Emu8080Op()
 			}
 			break; 
 		
-		// TODO : paste unimp ins between 0x66 and 0x6f
+		case 0x67: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x68: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x69: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x6a: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x6b: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x6c: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x6d: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x6e: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
 		case 0x6f: // Implemented Instruction for Episode 17 : MOV L, A
 			state->l = state->a;
 			break; 
+
+		case 0x70: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x71: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x72: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x73: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x74: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x75: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x76: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
-		// TODO : paste unimp ins between 0x6f and 0x77
+		case 0x77: UnimplementedIns(state); // Implemented Instruction for Episode 18 : MOV M, A
+			{
+				uint16_ offset = (state->h << 8) | (state->l);
+				state->memory[offset] = state->a;
+			}
+			break;
+			
+		case 0x78: UnimplementedIns(state); break; // TODO: Implement Instruction
+		case 0x79: UnimplementedIns(state); break; // TODO: Implement Instruction
 		
-		case 0x77: UnimplementedIns(state); break; // TODO: Implement Instruction for Episode 18 : MOV M, A
+		case 0x7a: UnimplementedIns(state); // Implemented Instruction for Episode 18 : MOV A, D
+			state->a = state->d;
+			break;
+		
+		case 0x7b: UnimplementedIns(state); // Implemented Instruction for Episode 18 : MOV A, E
+			state->a = state->e;
+			break;
+		
+		case 0x7c: UnimplementedIns(state); // Implemented Instruction for Episode 18 : MOV A, H
+			state->a = state->h;
+			break;
+			
+		case 0x7d: UnimplementedIns(state); break; // TODO: Implement Instruction
+		
+		case 0x7e: UnimplementedIns(state); // Implemented Instruction for Episode 18 MOV A, M
+					{
+				uint16_ offset = (state->h << 8) | (state->l);
+				state->a = state->memory[offset];
+			}
+			break;
 		
 		
 	}
