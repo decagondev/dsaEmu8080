@@ -61,8 +61,36 @@ void FileReadToMemory(CpuState* state, char* fName, uint32_t offs)
 	fclose(filename);
 }
 
+
+
+void WriteToMem(CpuState* state, uint16_t addr, uint8_t val) // Implemented in Episode 18
+{
+	if(addr < 0x2000)
+	{
+		printf("Writing Out of Lower Bounds %x\n", addr);
+		return;
+	}
+	if(addr >= 0x4000)
+	{
+		printf("Writing Out of Upper Bounds %x\n", addr);
+		return;
+	}
 	
-	
+	state->memory[addr] = val;
+}
+
+void Pop(CpuState* state, uint8_t *high, uint8_t *low) // Implemented in Episode 18
+{
+	*low = state->memory[state->sp];
+	*high = state->memory[state->sp +1];
+}
+
+void Push(CpuState* state, uint8_t high, uint8_t low) // Implemented in Episode 
+{
+	WriteToMem(state, state->sp - 1, high);
+	WriteToMem(state, state->sp - 2, low);
+	state->sp -= 2;
+}
 	
 int DissAsm(unsigned char *buff, int pc) 
 {
