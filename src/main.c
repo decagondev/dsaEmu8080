@@ -82,6 +82,27 @@ void WriteToMem(CpuState* state, uint16_t addr, uint8_t val) // Implemented in E
 	state->memory[addr] = val;
 }
 
+// implemented in episode 20. Read and Write HL / Z S P Flag functions
+
+uint8_t ReadFromHL(VpuState* state)
+{
+	uint16_t offset = (state->h << 8) | state->l;
+	return state->memory[offset];
+}
+
+void WriteToHL(CpuState* state, uint8_t val)
+{
+	uint16_t offset = (state->h << 8) | state->l;
+	WriteToMem(state, offset, val);
+}
+
+void FlagsZSP(CpuState *state, uint8_t val)
+{
+	state->cc.z = (val == 0);
+	state->cc.s = (0x80 == (val & 0x80));
+	state->cc.p = parity(value, 8);
+}
+
 void Pop(CpuState* state, uint8_t *high, uint8_t *low) // Implemented in Episode 18
 {
 	*low = state->memory[state->sp];
@@ -980,8 +1001,24 @@ int Emu8080Op()
 		
 		
 	}
-	return 0;
+	printf("\t");
+	printf("%c", state->cc.z ? 'z' : '.');
+	printf("%c", state->cc.s ? 's' : '.');
+	printf("%c", state->cc.p ? 'p' : '.');
+	printf("%c", state->cc.cy ? 'c' : '.');
+	printf("%c  ", state->cc.ac ? 'a' : '.');
+	printf("A $%02x B $%02x C $%02x D $%02x E $%02x H $%02x L $%02x SP %04x\n", state->a, state->b, state->c,
+				state->d, state->e, state->h, state->l, state->sp);
+	return 0
 }
+
+CpuState* CpuInit(void)
+{
+	CpuState* state = calloc(1,sizeof(CpuState));
+	state->memory = malloc(0x10000);  //16K
+	return state;
+}
+
 int main()
 {
 	// open bin file
