@@ -21,6 +21,7 @@ unsigned char cycles8080[] = {
 	11, 10, 10, 18, 17, 11, 7, 11, 11, 5, 10, 5, 17, 17, 7, 11, 
 	11, 10, 10, 4, 17, 11, 7, 11, 11, 5, 10, 4, 17, 17, 7, 11, 
 };
+
 //parity function
 static int parity(int x, int size)
 {
@@ -34,6 +35,33 @@ static int parity(int x, int size)
 	}
 	return (0 == (p & 0x1));
 }
+
+static void LogicFlagsDSA(CpuState *state)
+{
+	state->cc.cy = state->cc.ac = 0;
+	state->cc.z = (state->a == 0);
+	state->cc.s = (0x80 == (state->a & 0x80));
+	state->cc.p = parity(state->a, 8);
+}
+
+static void ArithmaticFlagsDSA(CpuState *state, uint16_t res)
+{
+	state->cc.cy = (res > 0xff);
+	state->cc.z = ((res&0xff) == 0);
+	state->cc.s = (0x80 == (res & 0x80));
+	state->cc.p = parity(res&0xff, 8);
+}
+
+static void UnimplementedIns(CpuState* state)
+{
+	//pc will have advanced one, so undo that
+	printf ("Error: Unimplemented instruction\n");
+	state->pc--;
+	DissAsm(state->memory, state->pc);
+	printf("\n");
+	exit(1);
+}
+
 
 static void WriteMem(CpuState *state, uint16_t addr, uint8_t val)
 {
@@ -61,6 +89,21 @@ static void Push(CpuState *state, uint8_t high, uint8_t low)
 	state->sp = state->sp -2;
 
 }
+
+static void Pop(CpuState *state, uint8_t *high, uint8_t *low)
+{
+	*low = state->memory[state->sp];
+	*high = state->memory[state->sp+1];
+	state->sp += 2;
+}
+
+static void FlagsZSP(CpuState *state, uint8_t val)
+{
+	state->cc.z = (val == 0);
+	state->cc.s (0x80 == (val & 0x80));
+	state->cc.p = parity(val, 8);
+}	
+
 
 void GenerateInterrupt(CpuState* state, int interruptNum)
 {
