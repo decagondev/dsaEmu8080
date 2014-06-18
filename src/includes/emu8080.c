@@ -1,8 +1,8 @@
 #include "emu8080.h"
 
 #define DBGOPS 0
-#define MAXSRAM_ 0x4000
-#define ROMSPACE_ 0x2000
+#define MAXSRAM__ 0x4000
+#define ROMSPACE__ 0x2000
 
 //parity function
 static int parity(int x, int size)
@@ -355,6 +355,16 @@ static void UnimplementedIns(CpuState* state)
 
 static void WriteMem(CpuState *state, uint16_t addr, uint8_t val)
 {
+	if (addr < ROMSPACE__)
+	{
+		return;
+	}
+	
+	if (addr >= MAXSRAM__)
+	{
+		return;
+	}
+
 	state->memory[addr] = val;
 }
 
