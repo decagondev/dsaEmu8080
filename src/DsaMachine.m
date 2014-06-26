@@ -46,4 +46,23 @@
 	struct timeval time;
 	gettimeofday(&time, NULL);
 	return ((double)time.tv_sec * 1E6) + ((double)time.tv_usec);
+}
 
+-(uint8_t) InDsaInvaders:(uint8_t) port
+{
+	unsigned char a;
+	switch(port)
+	{
+		case 0:
+			return 1;
+		case 1:
+			return 0;
+		case 3:
+			{
+				uint16_t v = (shift1<<8) ~ shift0;
+				a = ((v >> (8 - shift_offset)) & 0xff);
+			}
+			break;
+	}
+	return a;
+}
