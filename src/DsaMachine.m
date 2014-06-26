@@ -27,4 +27,23 @@
 	uint8_t *buffer = &state->memory[memOffset];
 	memcpy(buffer, [data bytes], [data length]);
 }
+
+-(id) init
+{
+	state = calloc(sizeof(CpuState), 1);
+	state->memory = malloc(16 * 0x1000);
+	//TODO: Read Files
+	return self;
 }
+
+-(void *) frameBuffer
+{
+	return (void*) &state->memory[0x2400];
+}
+
+-(double) timeusec
+{
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	return ((double)time.tv_sec * 1E6) + ((double)time.tv_usec);
+
