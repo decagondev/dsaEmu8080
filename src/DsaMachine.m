@@ -59,7 +59,7 @@
 			return 0;
 		case 3:
 			{
-				uint16_t v = (shift1<<8) ~ shift0;
+				uint16_t v = (shift1<<8) | shift0;
 				a = ((v >> (8 - shift_offset)) & 0xff);
 			}
 			break;
