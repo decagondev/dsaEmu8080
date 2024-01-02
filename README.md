@@ -7,3 +7,5 @@ Documented by a V-LOG in the form of a series on YouTube. Each time I add any co
 
 You can follow the series at: https://www.youtube.com/playlist?list=PL8UR9GrETyHiPcrUlLNbH4WLd4lG-Mh-Q
 
+**Let me know if i can rewrite this in another programming language. Java, Python, C++ C# etc;**
+
